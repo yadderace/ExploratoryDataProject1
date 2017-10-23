@@ -1,0 +1,19 @@
+################ PLOT 1 ###################
+power_consumption_data <- read.table("household_power_consumption.txt",  header = TRUE, sep = ";", na.strings = "?");
+
+power_consumption_data$DateTime <- strptime(
+  paste(power_consumption_data$Date, power_consumption_data$Time), 
+  "%d/%m/%Y %H:%M:%S"
+);
+
+power_consumption_data_feb <- subset(
+  power_consumption_data, 
+  as.Date(DateTime) >= '2007-02-01' & as.Date(DateTime) <= '2007-02-02'
+);
+
+
+png("plot1.png", width=480, height=480);
+
+hist(power_consumption_data_feb$Global_active_power, col = "red", main = "Global Active Power", xlab = "Global Active Power (kilowatts)");
+
+dev.off();
